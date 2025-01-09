@@ -1,14 +1,24 @@
 const express = require("express");
 const { createTodo, updateTodo } = require("./type");
 const { todo } = require("./db/database");
+const cors=require("cors")
 const app = express();
 
 app.use(express.json()); //make sure all the post endpoints works,it helps to parse a body if its JSON body
 
+//cors package  allows frontend to hit the backend
+app.use(cors({
+  origin:"http://localhost:5173"
+}))
+
 //Endpoint for creating a todo
 app.post("/todo", async (req, res) => {
   //validate the input which as came from user
-  const payLoad = req.body;
+  const payLoad =req.body;
+
+  console.log("Title is:-",req.body.title);
+  console.log("description is:-",req.body.description);
+
   const parsedPayLoad = createTodo.safeParse(payLoad);
   if (!parsedPayLoad.success) {
     return res.status(411).json({
