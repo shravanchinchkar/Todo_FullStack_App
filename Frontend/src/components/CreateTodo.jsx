@@ -17,7 +17,8 @@ export function CreateTodo() {
   }
 
   async function postTodos() {
-    const res=fetch("http://localhost:3000/todo", {
+    //fetch requires body to stringify before sending to backend, that's how it works
+    const response=await fetch("http://localhost:3000/todo", {
       method: "POST",
       body: JSON.stringify({
         title: title,
@@ -27,6 +28,7 @@ export function CreateTodo() {
         "content-type":"application/json"
       }
     });
+
   }
 
   return (
